@@ -1,36 +1,41 @@
 package com.epam.engx.cleancode.functions.task5;
 
+import static com.epam.engx.cleancode.functions.task5.DateUtilTestUtility.*;
+import static org.junit.Assert.assertEquals;
+
 import org.junit.Test;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import static com.epam.engx.cleancode.functions.task5.DateUtilTestHelper.*;
-import static org.junit.Assert.assertEquals;
-
 public class DateUtilTest {
 
     private static final int MONTH_SHIFT = -1;
+    private static final String EXPECTED_DATE_11_OCT_2014 = "10/11/2014 00:00:00";
+    private static final String EXPECTED_DATE_09_OCT_2014 = "10/09/2014 00:00:00";
+    private static final String DATE_TIME_PATTERN = "MM/dd/yyyy HH:mm:ss";
 
-    private DateUtil dateUtil = new DateUtil();
+    private static final int YEAR = 2014;
+    private static final int MONTH = 10;
+    private static final int DAY = 10;
+    private final Date date = create(YEAR, MONTH, DAY);
 
-    private final Date date = create(2014, 10, 10);
+    private final DateUtil dateUtil = new DateUtil();
 
     @Test
     public void shouldIncrementDate() {
-        assertEquals("10/11/2014 00:00:00", format(getDirectlyIncrementedDate(dateUtil, date)));
+        assertEquals(EXPECTED_DATE_11_OCT_2014, format(getDirectlyIncrementedDate(dateUtil, date)));
     }
 
     @Test
     public void shouldDecrementDate() {
-        assertEquals("10/09/2014 00:00:00", format(getInverseIncrementedDate(dateUtil, date)));
+        assertEquals(EXPECTED_DATE_09_OCT_2014, format(getInverseIncrementedDate(dateUtil, date)));
     }
 
     private String format(Date date) {
-        return new SimpleDateFormat("MM/dd/yyyy HH:mm:ss").format(date);
+        return new SimpleDateFormat(DATE_TIME_PATTERN).format(date);
     }
-
 
     public Date create(int year, int month, int day) {
         Calendar calendar = Calendar.getInstance();
