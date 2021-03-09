@@ -9,7 +9,7 @@ import java.util.TreeMap;
 
 public abstract class Account implements User {
 
-    public static final int ZERO = 0;
+    private static final int ZERO = 0;
 
     private TreeMap<Integer, Level> levelMap = new TreeMap<>();
 
