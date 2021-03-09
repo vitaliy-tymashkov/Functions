@@ -5,23 +5,35 @@ import com.epam.engx.cleancode.functions.task4.thirdpartyjar.Product;
 import java.util.Iterator;
 import java.util.List;
 
-public class Order {
+public class OrderService {
 
     private List<Product> products;
 
     public Double getPriceOfAvailableProducts() {
-        double orderPrice = 0.0;
+        removeNotAvailableProducts();
+        return getAllProductsPrice();
+    }
+
+    private void removeNotAvailableProducts() {
         Iterator<Product> iterator = products.iterator();
         while (iterator.hasNext()) {
-            Product p = iterator.next();
-            if (!p.isAvailable())
+            if (isNotAvailableProduct(iterator.next())) {
                 iterator.remove();
+            }
         }
-        for (Product p : products)
-            orderPrice += p.getProductPrice();
+    }
+
+    private double getAllProductsPrice() {
+        double orderPrice = 0.0D;
+        for (Product product : products) {
+            orderPrice += product.getProductPrice();
+        }
         return orderPrice;
     }
 
+    private boolean isNotAvailableProduct(Product product) {
+        return !product.isAvailable();
+    }
 
     public void setProducts(List<Product> products) {
         this.products = products;

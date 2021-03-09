@@ -10,42 +10,42 @@ import java.util.Arrays;
 
 import static org.junit.Assert.assertEquals;
 
-public class OrderTest {
+public class OrderServiceTest {
 
     private static final double DELTA = 0.0001;
 
-    private Order order = new Order();
+    private OrderService orderService = new OrderService();
 
     @Test
     public void shouldGetProducts() {
         ArrayList<Product> products = getList(new AvailableProductStub(), new AvailableProductStub());
-        order.setProducts(products);
-        assertEquals(products, order.getProducts());
+        orderService.setProducts(products);
+        assertEquals(products, orderService.getProducts());
     }
 
     @Test
     public void shouldCalculateZeroIfOrderContainsNoProduct() {
-        order.setProducts(new ArrayList<Product>());
-        assertEquals(0.0, order.getPriceOfAvailableProducts(), DELTA);
+        orderService.setProducts(new ArrayList<Product>());
+        assertEquals(0.0, orderService.getPriceOfAvailableProducts(), DELTA);
     }
 
     @Test
     public void shouldCalculateZeroIfOrderContainsOnlyUnavailableProducts() {
-        order.setProducts(getList(new UnavailableProductStub(), new UnavailableProductStub()));
-        assertEquals(0.0, order.getPriceOfAvailableProducts(), DELTA);
+        orderService.setProducts(getList(new UnavailableProductStub(), new UnavailableProductStub()));
+        assertEquals(0.0, orderService.getPriceOfAvailableProducts(), DELTA);
     }
 
     @Test
     public void shouldCalculateTwentyIfOrderContainsTwoAvailable10PriceProducts() {
-        order.setProducts(getList(new AvailableProductStub(), new AvailableProductStub()));
-        assertEquals(20.0, order.getPriceOfAvailableProducts(), DELTA);
+        orderService.setProducts(getList(new AvailableProductStub(), new AvailableProductStub()));
+        assertEquals(20.0, orderService.getPriceOfAvailableProducts(), DELTA);
     }
 
     @Test
     public void shouldCalculateTwentyIfOrderContainsTwoAvailable10PriceProductsWithOtherUnavailableProducts() {
-        order.setProducts(getList(new UnavailableProductStub(), new AvailableProductStub(),
+        orderService.setProducts(getList(new UnavailableProductStub(), new AvailableProductStub(),
                 new AvailableProductStub(), new UnavailableProductStub()));
-        assertEquals(20.0, order.getPriceOfAvailableProducts(), DELTA);
+        assertEquals(20.0, orderService.getPriceOfAvailableProducts(), DELTA);
     }
 
     private ArrayList<Product> getList(Product... products) {
