@@ -5,7 +5,7 @@ import com.epam.engx.cleancode.functions.task2.stubs.NotRegisteredAccountStub;
 import com.epam.engx.cleancode.functions.task2.stubs.NotVisitingAccountStub;
 import com.epam.engx.cleancode.functions.task2.stubs.ReviewStub;
 import com.epam.engx.cleancode.functions.task2.thirdpartyjar.Level;
-import com.epam.engx.cleancode.functions.task2.thirdpartyjar.NotActivUserException;
+import com.epam.engx.cleancode.functions.task2.thirdpartyjar.NotActiveAccountException;
 import com.epam.engx.cleancode.functions.task2.thirdpartyjar.Review;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,13 +27,13 @@ public class AccountTest {
         levelMap.put(30, new Level("2"));
     }
 
-    @Test (expected = NotActivUserException.class)
+    @Test (expected = NotActiveAccountException.class)
     public void shouldThrowExceptionWhenAccountIsNotRegistered() {
         Account accountStub = new NotRegisteredAccountStub();
         accountStub.getActivityLevel();
     }
 
-    @Test (expected = NotActivUserException.class)
+    @Test (expected = NotActiveAccountException.class)
     public void shouldThrowExceptionWhenAccountIsNotVisiting() {
         Account accountStub = new NotVisitingAccountStub();
         accountStub.getActivityLevel();
