@@ -12,7 +12,9 @@ import static org.junit.Assert.assertEquals;
 
 public class OrderServiceTest {
 
-    private static final double DELTA = 0.0001;
+    private static final double DELTA = 0.0001D;
+    private static final double EXPECTED_0 = 0.0;
+    private static final double EXPECTED_20 = 20.0;
 
     private OrderService orderService = new OrderService();
 
@@ -26,26 +28,26 @@ public class OrderServiceTest {
     @Test
     public void shouldCalculateZeroIfOrderContainsNoProduct() {
         orderService.setProducts(new ArrayList<Product>());
-        assertEquals(0.0, orderService.getPriceOfAvailableProducts(), DELTA);
+        assertEquals(EXPECTED_0, orderService.getPriceOfAvailableProducts(), DELTA);
     }
 
     @Test
     public void shouldCalculateZeroIfOrderContainsOnlyUnavailableProducts() {
         orderService.setProducts(getList(new UnavailableProductStub(), new UnavailableProductStub()));
-        assertEquals(0.0, orderService.getPriceOfAvailableProducts(), DELTA);
+        assertEquals(EXPECTED_0, orderService.getPriceOfAvailableProducts(), DELTA);
     }
 
     @Test
     public void shouldCalculateTwentyIfOrderContainsTwoAvailable10PriceProducts() {
         orderService.setProducts(getList(new AvailableProductStub(), new AvailableProductStub()));
-        assertEquals(20.0, orderService.getPriceOfAvailableProducts(), DELTA);
+        assertEquals(EXPECTED_20, orderService.getPriceOfAvailableProducts(), DELTA);
     }
 
     @Test
     public void shouldCalculateTwentyIfOrderContainsTwoAvailable10PriceProductsWithOtherUnavailableProducts() {
         orderService.setProducts(getList(new UnavailableProductStub(), new AvailableProductStub(),
                 new AvailableProductStub(), new UnavailableProductStub()));
-        assertEquals(20.0, orderService.getPriceOfAvailableProducts(), DELTA);
+        assertEquals(EXPECTED_20, orderService.getPriceOfAvailableProducts(), DELTA);
     }
 
     private ArrayList<Product> getList(Product... products) {
