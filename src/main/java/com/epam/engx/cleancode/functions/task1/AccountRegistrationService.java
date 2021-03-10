@@ -27,9 +27,9 @@ public class AccountRegistrationService {
     }
 
     private void validateAccountCredentials(Account account) {
-        validateAccountNameLength(account);
-        validatePasswordLength(account);
-        validatePassword(account);
+        validateAccountNameLength(account.getName());
+        validatePasswordLength(account.getPassword());
+        validatePassword(account.getPassword());
     }
 
     private void setAccountDetails(Account account) {
@@ -53,26 +53,26 @@ public class AccountRegistrationService {
         return addresses;
     }
 
-    private void validateAccountNameLength(Account account) {
-        if (account.getName().length() <= ACCOUNT_NAME_MIN_LENGTH){
+    private void validateAccountNameLength(String name) {
+        if (name.length() <= ACCOUNT_NAME_MIN_LENGTH){
             throw new WrongAccountNameException();
         }
     }
 
-    private void validatePasswordLength(Account account) {
-        if (account.getPassword().length() <= PASSWORD_MIN_LENGTH) {
+    private void validatePasswordLength(String password) {
+        if (password.length() <= PASSWORD_MIN_LENGTH) {
             throw new TooShortPasswordException();
         }
     }
 
-    private void validatePassword(Account account) {
-        if (checkPassword(account)) {
+    private void validatePassword(String password) {
+        if (checkPassword(password)) {
             throw new WrongPasswordException();
         }
     }
 
-    private boolean checkPassword(Account account) {
-        return passwordChecker.validate(account.getPassword()) != OK;
+    private boolean checkPassword(String password) {
+        return passwordChecker.validate(password) != OK;
     }
 
     public void setAccountManager(AccountManager accountManager) {
