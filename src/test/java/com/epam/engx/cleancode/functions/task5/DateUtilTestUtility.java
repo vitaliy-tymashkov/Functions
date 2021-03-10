@@ -8,11 +8,11 @@ public class DateUtilTestUtility {
         throw new UnsupportedOperationException();
     }
 
-    public static Date getDirectlyIncrementedDate(DateUtil dateUtil, Date date) {
-        return dateUtil.changeToMidnightForward(date);
+    public static Date getDirectlyIncrementedDate(DateProvider dateProvider, Date date) {
+        return dateProvider.changeToMidnightForward(date);
     }
 
-    public static Date getInverseIncrementedDate(DateUtil dateUtil, Date date) {
-        return dateUtil.changeToMidnightReverse(date);
+    public static Date getInverseIncrementedDate(DateProvider dateProvider, Date date) {
+        return dateProvider.changeToMidnightReverse(date);
     }
 }
