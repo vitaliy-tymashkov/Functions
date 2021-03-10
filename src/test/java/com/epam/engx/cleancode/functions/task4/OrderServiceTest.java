@@ -33,20 +33,41 @@ public class OrderServiceTest {
 
     @Test
     public void shouldCalculateZeroIfOrderContainsOnlyUnavailableProducts() {
-        orderService.setProducts(getList(new UnavailableProductStub(), new UnavailableProductStub()));
+        ArrayList<Product> products = getList(
+                new UnavailableProductStub(),
+                new UnavailableProductStub());
+        orderService.setProducts(products);
         assertEquals(EXPECTED_0, orderService.getPriceOfAvailableProducts(), DELTA);
     }
 
     @Test
     public void shouldCalculateTwentyIfOrderContainsTwoAvailable10PriceProducts() {
-        orderService.setProducts(getList(new AvailableProductStub(), new AvailableProductStub()));
+        ArrayList<Product> products = getList(
+                new AvailableProductStub(),
+                new AvailableProductStub());
+        orderService.setProducts(products);
         assertEquals(EXPECTED_20, orderService.getPriceOfAvailableProducts(), DELTA);
     }
 
     @Test
     public void shouldCalculateTwentyIfOrderContainsTwoAvailable10PriceProductsWithOtherUnavailableProducts() {
-        orderService.setProducts(getList(new UnavailableProductStub(), new AvailableProductStub(),
-                new AvailableProductStub(), new UnavailableProductStub()));
+        ArrayList<Product> products = getList(
+                new UnavailableProductStub(),
+                new AvailableProductStub(),
+                new AvailableProductStub(),
+                new UnavailableProductStub());
+        orderService.setProducts(products);
+        assertEquals(EXPECTED_20, orderService.getPriceOfAvailableProducts(), DELTA);
+    }
+
+    @Test
+    public void shouldCalculateTwentyIfOrderContainsTwoAvailable10PriceProductsInTheBeginningWithOtherUnavailableProducts() {
+        ArrayList<Product> products = getList(
+                new AvailableProductStub(),
+                new AvailableProductStub(),
+                new UnavailableProductStub(),
+                new UnavailableProductStub());
+        orderService.setProducts(products);
         assertEquals(EXPECTED_20, orderService.getPriceOfAvailableProducts(), DELTA);
     }
 
