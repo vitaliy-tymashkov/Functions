@@ -4,20 +4,22 @@ import com.epam.engx.cleancode.functions.task3.thirdpartyjar.SessionManager;
 import com.epam.engx.cleancode.functions.task3.thirdpartyjar.User;
 import com.epam.engx.cleancode.functions.task3.thirdpartyjar.UserService;
 
+import javax.naming.AuthenticationException;
+
 public abstract class UserAuthenticator implements UserService {
 
     private SessionManager sessionManager;
 
-    public User login(String userName, String password) {
-        return loginUser(getUserByName(userName), password);
+    public void login(String userName, String password) throws AuthenticationException {
+        loginUser(getUserByName(userName), password);
     }
 
-    private User loginUser(User user, String password) {
+    private void loginUser(User user, String password) throws AuthenticationException {
         if (isPasswordCorrect(user, password)) {
             setSessionWithUser(user);
-            return user;
+        } else {
+            throw new AuthenticationException("Incorrect Username or Password");
         }
-        return null;
     }
 
     private void setSessionWithUser(User user) {
