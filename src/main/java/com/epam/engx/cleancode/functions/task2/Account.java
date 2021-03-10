@@ -11,7 +11,7 @@ public abstract class Account implements User {
 
     private static final int ZERO = 0;
 
-    private TreeMap<Integer, Level> levelMap = new TreeMap<>();
+    private TreeMap<Integer, Level> thresholdToLevel = new TreeMap<>();
 
     public Level getActivityLevel() {
         validateAccountForLevel();
@@ -28,8 +28,9 @@ public abstract class Account implements User {
     }
 
     private void validateAccountForLevel() {
-        if (isNotActiveAccount())
+        if (isNotActiveAccount()) {
             throw new NotActiveAccountException();
+        }
     }
 
     private boolean isNotActiveAccount() {
@@ -45,9 +46,9 @@ public abstract class Account implements User {
     }
 
     private Level getLevelByReviews(int reviewAnswers) {
-        for (Integer threshold : levelMap.keySet()) {
+        for (Integer threshold : thresholdToLevel.keySet()) {
             if (isReviewAnswersAboveThreshold(reviewAnswers, threshold)) {
-                return levelMap.get(threshold);
+                return thresholdToLevel.get(threshold);
             }
         }
 
@@ -58,7 +59,7 @@ public abstract class Account implements User {
         return reviewAnswers >= threshold;
     }
 
-    public void setLevelMap(TreeMap<Integer, Level> levelMap) {
-        this.levelMap = levelMap;
+    public void setThresholdToLevel(TreeMap<Integer, Level> thresholdToLevel) {
+        this.thresholdToLevel = thresholdToLevel;
     }
 }
