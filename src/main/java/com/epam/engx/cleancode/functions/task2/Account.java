@@ -9,7 +9,7 @@ import java.util.TreeMap;
 
 public abstract class Account implements User {
 
-    private static final int ZERO = 0;
+    private static final int MINIMUM_VISIT_NUMBER = 0;
 
     private TreeMap<Integer, Level> thresholdToLevel = new TreeMap<>();
 
@@ -38,7 +38,7 @@ public abstract class Account implements User {
     }
 
     private boolean areVisitsZeroOrLess() {
-        return getVisitNumber() <= ZERO;
+        return getVisitNumber() <= MINIMUM_VISIT_NUMBER;
     }
 
     private boolean isNotRegistered() {
