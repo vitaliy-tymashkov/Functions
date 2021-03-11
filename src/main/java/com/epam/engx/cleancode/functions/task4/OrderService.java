@@ -15,15 +15,11 @@ public class OrderService {
     private double getOnlyAvailableProductsPrice() {
         double orderPrice = 0.0D;
         for (Product product : products) {
-            if (isAvailableProduct(product)) {
+            if (product.isAvailable()) {
                 orderPrice += product.getProductPrice();
             }
         }
         return orderPrice;
-    }
-
-    private boolean isAvailableProduct(Product product) {
-        return product.isAvailable();
     }
 
     public void setProducts(List<Product> products) {
